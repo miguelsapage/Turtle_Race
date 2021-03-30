@@ -117,6 +117,14 @@ class CreatTurtles:
 			for part in turtle:
 				part.undraw()
 
+	def redrawTurtles(self, allTurtles, win):
+		for turtle in allTurtles:
+			ycoord = turtle[0].getCenter().getY()
+			dy = 480 - ycoord
+			for part in turtle:
+				part.move(0, dy)
+				part.draw(win)
+
 class MoveTurtles:
 
 	def moveTurtle(self, allTurtles):

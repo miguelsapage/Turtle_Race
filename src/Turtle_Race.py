@@ -38,6 +38,16 @@ def main():
 
 	turtles.undrawTurtles(allTurtles, win)
 
+	for i in range(number_laps - 1):
+		turtles.redrawTurtles(allTurtles, win)
+
+		movment = MoveTurtles()
+		movment.moveTurtle(allTurtles)
+
+		sleep(1)
+
+		turtles.undrawTurtles(allTurtles, win)
+
 	quit_button = Quit(win)
 	restart_button = Restart(win)
 	while True:
