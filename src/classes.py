@@ -73,15 +73,20 @@ class CreatTurtles:
 
 	def generateTurtle(self, nrTurtles, win):
 		allTurtles = [] #Saves a list of turtles
+		self.all_colors = [] #Saves turtles colors
 		for i in range(nrTurtles):
 			if self.interact():
 				xcoord = self.xCoords[i]
 				turtleColor = str(self.color.getText()) #Only work valid colors
+				self.all_colors.append(turtleColor)
 				turtle = self.makeTurtle(turtleColor, xcoord, win)
 			allTurtles.append(turtle)
 			self.color.setText('')
 		self.win.close() #Closes GUI to choose colores after all turtles colors are setted
 		return allTurtles
+
+	def list_of_colors(self):
+		return self.all_colors
 
 	def makeTurtle(self, color, xcoord, win):
 		turtle = []
@@ -174,3 +179,15 @@ class Restart:
 
 	def restartGame(self):
 		return None
+
+class Winner:
+	def register_winner(self, allTurtles):
+		self.winner = 0
+		position = 280
+		for turtle in allTurtles:
+			if turtle[0].getCenter().getY() < position:
+				position = turtle[0].getCenter().getY()
+				self.winner = allTurtles.index(turtle)
+
+	def winner_color(self, colors_list):
+		return colors_list[self.winner]

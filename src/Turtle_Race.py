@@ -36,6 +36,11 @@ def main():
 
 	sleep(1)
 
+	winner = Winner()
+	winner.register_winner(allTurtles)
+	winner_color = winner.winner_color(turtles.list_of_colors())
+	print(winner_color)
+
 	turtles.undrawTurtles(allTurtles, win)
 
 	for i in range(number_laps - 1):
@@ -45,6 +50,10 @@ def main():
 		movment.moveTurtle(allTurtles)
 
 		sleep(1)
+
+		winner.register_winner(allTurtles)
+		winner_color = winner.winner_color(turtles.list_of_colors())
+		print(winner_color)
 
 		turtles.undrawTurtles(allTurtles, win)
 
