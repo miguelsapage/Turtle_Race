@@ -39,7 +39,9 @@ def main():
 	winner = Winner()
 	winner.register_winner(allTurtles)
 	winner_color = winner.winner_color(turtles.list_of_colors())
-	print(winner_color)
+	print('-' * 30)
+	print('Lap 1 winner:', winner_color)
+	winner.winners_list(winner_color, number_laps)
 
 	turtles.undrawTurtles(allTurtles, win)
 
@@ -53,9 +55,17 @@ def main():
 
 		winner.register_winner(allTurtles)
 		winner_color = winner.winner_color(turtles.list_of_colors())
-		print(winner_color)
+		print('Lap', i + 2, 'winner:', winner_color)
+		winner.winners_list(winner_color, number_laps)
 
 		turtles.undrawTurtles(allTurtles, win)
+
+	overall_winner = winner.overall_winner(turtles.list_of_colors())
+	if len(overall_winner) > 1:
+		print("It's a tie between", *overall_winner)
+	else:
+		print('The overall winner is', *overall_winner)
+	print('-' * 30)
 
 	quit_button = Quit(win)
 	restart_button = Restart(win)

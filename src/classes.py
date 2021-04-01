@@ -181,6 +181,9 @@ class Restart:
 		return None
 
 class Winner:
+	def __init__(self):
+		self.list_of_winners = []
+
 	def register_winner(self, allTurtles):
 		self.winner = 0
 		position = 280
@@ -191,3 +194,18 @@ class Winner:
 
 	def winner_color(self, colors_list):
 		return colors_list[self.winner]
+
+	def winners_list(self, winner, laps):
+		self.list_of_winners.append(winner)
+
+	def overall_winner(self, colors_list):
+		winner = []
+		wins = 0
+		for color in colors_list:
+			if self.list_of_winners.count(color) > wins:
+				wins = self.list_of_winners.count(color)
+				winner = [color]
+			elif self.list_of_winners.count(color) == wins and color not in winner:
+				winner.append(color)
+		self.list_of_winners = []
+		return winner

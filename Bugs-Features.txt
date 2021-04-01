@@ -5,4 +5,4 @@ Bugs to fix:
 Features to add:
 	- Betting sistem
 	- Not uniform movment
-	- Log of winners
+	- Tiebraker button
