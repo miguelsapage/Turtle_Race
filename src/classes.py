@@ -187,16 +187,16 @@ class Winner:
 	def register_winner(self, allTurtles):
 		self.winner = 0
 		position = 280
-		for turtle in allTurtles:
+		for turtle in allTurtles: #Compares the positions of all turtles
 			if turtle[0].getCenter().getY() < position:
 				position = turtle[0].getCenter().getY()
 				self.winner = allTurtles.index(turtle)
 
 	def winner_color(self, colors_list):
-		return colors_list[self.winner]
+		return colors_list[self.winner] #Winner of specific lap
 
 	def winners_list(self, winner, laps):
-		self.list_of_winners.append(winner)
+		self.list_of_winners.append(winner) #List of lap winners
 
 	def overall_winner(self, colors_list):
 		winner = []

@@ -61,6 +61,7 @@ def main():
 		turtles.undrawTurtles(allTurtles, win)
 
 	overall_winner = winner.overall_winner(turtles.list_of_colors())
+	#Decides if it's a tie or there's a single winner
 	if len(overall_winner) > 1:
 		print("It's a tie between", *overall_winner)
 	else:
