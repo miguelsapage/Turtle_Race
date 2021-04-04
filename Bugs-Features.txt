@@ -1,8 +1,7 @@
 Bugs to fix:
 	- Raise error message with wrong filling in the number of turtles field
 	- Raise error message with wrong filling in the color of turtles field
-	- Split classes into difrent files
+	- Split classes into different files
 Features to add:
-	- Betting sistem
-	- Not uniform movment
-	- Tiebraker button
+	- Betting system
+	- Not uniform movement

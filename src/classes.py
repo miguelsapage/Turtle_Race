@@ -64,7 +64,7 @@ class CreatTurtles:
 
 	def turtlesPosition(self, nrTurtles, width):
 		self.xCoords = [] #Saves the position of each turtle
-		#Calculates x coords based on the number of turtles choosed to center them and add it to the list
+		#Calculates x coordinates based on the number of turtles chosen to center them and add it to the list
 		x = (width / nrTurtles) / 2
 		for i in range(nrTurtles):
 			self.xCoords.append(x)
@@ -82,7 +82,7 @@ class CreatTurtles:
 				turtle = self.makeTurtle(turtleColor, xcoord, win)
 			allTurtles.append(turtle)
 			self.color.setText('')
-		self.win.close() #Closes GUI to choose colores after all turtles colors are setted
+		self.win.close() #Closes GUI to choose colors after all turtles colors are set
 		return allTurtles
 
 	def list_of_colors(self):
@@ -165,6 +165,10 @@ class Quit:
 			else:
 				return None
 
+	def undraw(self):
+		self.quit.deactivate()
+		self.quit.undraw()
+
 class Restart:
 	def __init__(self,win):
 		self.restart = Button(win, Point(215,480), 60, 20, 'Restart')
@@ -177,8 +181,9 @@ class Restart:
 			else:
 				return None
 
-	def restartGame(self):
-		return None
+	def undraw(self):
+		self.restart.deactivate()
+		self.restart.undraw()
 
 class Winner:
 	def __init__(self):
@@ -209,3 +214,26 @@ class Winner:
 				winner.append(color)
 		self.list_of_winners = []
 		return winner
+
+class Tie:
+	def __init__(self, win):
+		self.tiebreaker = Button(win, Point(135,480), 90, 20, 'Tiebreaker')
+		self.tiebreaker.activate()
+
+	def interact(self,p):
+		while True:
+			if self.tiebreaker.clicked(p):
+				return True
+			else:
+				return None
+
+	def undraw(self):
+		self.tiebreaker.deactivate()
+		self.tiebreaker.undraw()
+
+	def untie(self, colors_list, allTurtles, overall_winner):
+		turtles_to_untie = []
+		for i in overall_winner:
+			index = colors_list.index(i)
+			turtles_to_untie.append(allTurtles[index])
+		return turtles_to_untie

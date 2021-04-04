@@ -10,7 +10,7 @@ from graphics import *
 
 def main():
 	
-	#Number of turtles choosen by user
+	#Number of turtles chosen by user
 	nturtles = NumberTurtles()
 	
 	nturtles.enterKey()
@@ -25,20 +25,21 @@ def main():
 	win = GraphWin('Race', 300, 500)
 	Line(Point(0,20), Point(300,20)).draw(win)
 
-	#Draws turtles on the window (colors choosen by user)
+	#Draws turtles on the window (colors chosen by user)
 	turtles = CreatTurtles()
 	turtles.turtlesPosition(number_turtles, win.getWidth())	
 	allTurtles = turtles.generateTurtle(number_turtles, win)
 
-	#Takes care of the movemment of the turtles
+	#Takes care of the movement of the turtles
 	movment = MoveTurtles()
 	movment.moveTurtle(allTurtles)
 
 	sleep(1)
 
+	colors_list = turtles.list_of_colors()
 	winner = Winner()
 	winner.register_winner(allTurtles)
-	winner_color = winner.winner_color(turtles.list_of_colors())
+	winner_color = winner.winner_color(colors_list)
 	print('-' * 30)
 	print('Lap 1 winner:', winner_color)
 	winner.winners_list(winner_color, number_laps)
@@ -54,7 +55,7 @@ def main():
 		sleep(1)
 
 		winner.register_winner(allTurtles)
-		winner_color = winner.winner_color(turtles.list_of_colors())
+		winner_color = winner.winner_color(colors_list)
 		print('Lap', i + 2, 'winner:', winner_color)
 		winner.winners_list(winner_color, number_laps)
 
@@ -70,6 +71,11 @@ def main():
 
 	quit_button = Quit(win)
 	restart_button = Restart(win)
+
+	if len(overall_winner) > 1:
+		tiebreaker_button = Tie(win)
+		turtles_to_untie = tiebreaker_button.untie(colors_list, allTurtles, overall_winner)
+	
 	while True:
 		click = win.getMouse()
 		if quit_button.interact(click):
@@ -78,8 +84,27 @@ def main():
 			win.close()
 			main()
 			break
-		else:
-			pass
+		elif tiebreaker_button.interact(click):
+			quit_button.undraw()
+			restart_button.undraw()
+			tiebreaker_button.undraw()
+
+			turtles.redrawTurtles(turtles_to_untie, win)
+
+			movment = MoveTurtles()
+			movment.moveTurtle(turtles_to_untie)
+
+			sleep(1)
+
+			winner.register_winner(turtles_to_untie)
+			winner_color = winner.winner_color(overall_winner)
+			print('The overall winner is', winner_color)
+			winner.winners_list(winner_color, 1)
+
+			turtles.undrawTurtles(turtles_to_untie, win)
+
+			quit_button = Quit(win)
+			restart_button = Restart(win)
 
 	win.close()
 

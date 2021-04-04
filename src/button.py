@@ -48,3 +48,8 @@ class Button:
         self.label.setFill('darkgrey')
         self.rect.setWidth(1)
         self.active = 0
+
+    def undraw(self):
+        "Undraws the button."
+        self.rect.undraw()
+        self.label.undraw()
