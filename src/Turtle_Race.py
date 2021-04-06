@@ -8,6 +8,21 @@ Author: Miguel Sapage
 from classes import *
 from graphics import *
 
+def run_lap(allTurtles, colors_list, number_laps, turtles, win, winner):
+	#Takes care of the movement of the turtles
+	movment = MoveTurtles()
+	movment.moveTurtle(allTurtles)
+
+	sleep(1)
+
+	winner.register_winner(allTurtles)
+	winner_color = winner.winner_color(colors_list)
+	winner.winners_list(winner_color, number_laps)
+
+	turtles.undrawTurtles(allTurtles, win)
+
+	return winner_color
+
 def main():
 	
 	#Number of turtles chosen by user
@@ -30,36 +45,19 @@ def main():
 	turtles.turtlesPosition(number_turtles, win.getWidth())	
 	allTurtles = turtles.generateTurtle(number_turtles, win)
 
-	#Takes care of the movement of the turtles
-	movment = MoveTurtles()
-	movment.moveTurtle(allTurtles)
-
-	sleep(1)
-
-	colors_list = turtles.list_of_colors()
 	winner = Winner()
-	winner.register_winner(allTurtles)
-	winner_color = winner.winner_color(colors_list)
+	winner_color = run_lap(allTurtles, turtles.list_of_colors(), number_laps, turtles,win, winner)
+
 	print('-' * 30)
 	print('Lap 1 winner:', winner_color)
-	winner.winners_list(winner_color, number_laps)
 
-	turtles.undrawTurtles(allTurtles, win)
 
 	for i in range(number_laps - 1):
 		turtles.redrawTurtles(allTurtles, win)
 
-		movment = MoveTurtles()
-		movment.moveTurtle(allTurtles)
+		winner_color = run_lap(allTurtles, turtles.list_of_colors(), number_laps, turtles, win, winner)
 
-		sleep(1)
-
-		winner.register_winner(allTurtles)
-		winner_color = winner.winner_color(colors_list)
 		print('Lap', i + 2, 'winner:', winner_color)
-		winner.winners_list(winner_color, number_laps)
-
-		turtles.undrawTurtles(allTurtles, win)
 
 	overall_winner = winner.overall_winner(turtles.list_of_colors())
 	#Decides if it's a tie or there's a single winner
@@ -74,7 +72,7 @@ def main():
 
 	if len(overall_winner) > 1:
 		tiebreaker_button = Tie(win)
-		turtles_to_untie = tiebreaker_button.untie(colors_list, allTurtles, overall_winner)
+		turtles_to_untie = tiebreaker_button.untie(turtles.list_of_colors(), allTurtles, overall_winner)
 	
 	while True:
 		click = win.getMouse()
@@ -91,17 +89,12 @@ def main():
 
 			turtles.redrawTurtles(turtles_to_untie, win)
 
-			movment = MoveTurtles()
-			movment.moveTurtle(turtles_to_untie)
+			winner = Winner()
 
-			sleep(1)
+			winner_color = run_lap(turtles_to_untie, overall_winner, 1, turtles, win, winner)
 
-			winner.register_winner(turtles_to_untie)
-			winner_color = winner.winner_color(overall_winner)
 			print('The overall winner is', winner_color)
-			winner.winners_list(winner_color, 1)
-
-			turtles.undrawTurtles(turtles_to_untie, win)
+			print('-' * 30)
 
 			quit_button = Quit(win)
 			restart_button = Restart(win)
