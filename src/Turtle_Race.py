@@ -8,7 +8,7 @@ Author: Miguel Sapage
 from classes import *
 from graphics import *
 
-def run_lap(allTurtles, colors_list, number_laps, turtles, win, winner):
+def run_lap(allTurtles, colors_list, number_laps, turtles, win, winner): #Makes each lap run
 	#Takes care of the movement of the turtles
 	movment = MoveTurtles()
 	movment.moveTurtle(allTurtles)
@@ -45,6 +45,11 @@ def main():
 	turtles.turtlesPosition(number_turtles, win.getWidth())	
 	allTurtles = turtles.generateTurtle(number_turtles, win)
 
+	#The user can bet on a turtle
+	bet = Bet()
+	bet.enterKey()
+	winner_bet = bet.getBet()
+
 	winner = Winner()
 	winner_color = run_lap(allTurtles, turtles.list_of_colors(), number_laps, turtles,win, winner)
 
@@ -65,14 +70,16 @@ def main():
 		print("It's a tie between", *overall_winner)
 	else:
 		print('The overall winner is', *overall_winner)
-	print('-' * 30)
-
 	quit_button = Quit(win)
 	restart_button = Restart(win)
 
 	if len(overall_winner) > 1:
 		tiebreaker_button = Tie(win)
 		turtles_to_untie = tiebreaker_button.untie(turtles.list_of_colors(), allTurtles, overall_winner)
+	else:
+		bet.checkBet(*overall_winner)
+		print('-' * 30)
+
 	
 	while True:
 		click = win.getMouse()
@@ -91,9 +98,11 @@ def main():
 
 			winner = Winner()
 
-			winner_color = run_lap(turtles_to_untie, overall_winner, 1, turtles, win, winner)
+			winner_color = run_lap(turtles_to_untie, overall_winner, 1, turtles, win, winner) #It will run only 1 lap
 
 			print('The overall winner is', winner_color)
+
+			bet.checkBet(winner_color)
 			print('-' * 30)
 
 			quit_button = Quit(win)

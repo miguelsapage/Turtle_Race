@@ -232,8 +232,34 @@ class Tie:
 		self.tiebreaker.undraw()
 
 	def untie(self, colors_list, allTurtles, overall_winner):
-		turtles_to_untie = []
+		turtles_to_untie = [] #List of tied turtles
 		for i in overall_winner:
 			index = colors_list.index(i)
 			turtles_to_untie.append(allTurtles[index])
 		return turtles_to_untie
+
+class Bet:
+	def __init__(self):
+		self.win = win = GraphWin('Bet', 200, 200)
+
+		Text(Point(100, 70), 'Which turtle do you').draw(win)
+		Text(Point(100, 85), 'think will win?').draw(win)
+		self.winner_bet = Entry(Point(100, 110), 7).draw(win)
+
+	def getBet(self):
+		return self.winner_bet.getText()
+
+	def enterKey(self):
+		while True:
+			if self.win.getKey() == 'Return':
+				self.win.close()
+				break
+			else:
+				pass
+
+	def checkBet(self, overall_winner):
+		#Compares the bet to the winner
+		if self.winner_bet.getText() == overall_winner:
+			print('Your bet was right!!')
+		else:
+			print('Poor bet...try again')
