@@ -51,18 +51,15 @@ def main():
 	winner_bet = bet.getBet()
 
 	winner = Winner()
-	winner_color = run_lap(allTurtles, turtles.list_of_colors(), number_laps, turtles,win, winner)
-
 	print('-' * 30)
-	print('Lap 1 winner:', winner_color)
-
-
-	for i in range(number_laps - 1):
-		turtles.redrawTurtles(allTurtles, win)
+	
+	for i in range(number_laps):
+		if i > 0:
+			turtles.redrawTurtles(allTurtles, win)
 
 		winner_color = run_lap(allTurtles, turtles.list_of_colors(), number_laps, turtles, win, winner)
 
-		print('Lap', i + 2, 'winner:', winner_color)
+		print(f'Lap {i + 1} winner: {winner_color}')
 
 	overall_winner = winner.overall_winner(turtles.list_of_colors())
 	#Decides if it's a tie or there's a single winner
@@ -70,6 +67,7 @@ def main():
 		print("It's a tie between", *overall_winner)
 	else:
 		print('The overall winner is', *overall_winner)
+		
 	quit_button = Quit(win)
 	restart_button = Restart(win)
 

@@ -262,4 +262,4 @@ class Bet:
 		if self.winner_bet.getText() == overall_winner:
 			print('Your bet was right!!')
 		else:
-			print('Poor bet...try again')
+			print(f'Poor bet...try again (your bet: {self.winner_bet.getText()})')
