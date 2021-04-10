@@ -114,7 +114,8 @@ class CreatTurtles:
 
 	def interact(self):
 		while True:
-			if self.addButton.clicked(self.win.getMouse()):
+			click = self.win.getMouse()
+			if self.addButton.clicked(click):
 				return True
 
 	def undrawTurtles(self, allTurtles, win):
